@@ -1,0 +1,324 @@
+:root {
+    /* Color Palette - Light Theme (Default) */
+    --bg-color: #f0f2f5;
+    --text-color: #2d3748;
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --accent-color: #4facfe;
+    --secondary-color: #00f2fe;
+
+    /* Shapes Colors */
+    --shape-1-color: #4facfe;
+    --shape-2-color: #00f2fe;
+    --shape-3-color: #ff9a9e;
+    --line-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a202c;
+    --text-color: #f7fafc;
+    --glass-bg: rgba(26, 32, 44, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --accent-color: #76b3fa;
+    --secondary-color: #63b3ed;
+    --line-color: rgba(255, 255, 255, 0.1);
+
+    /* Shapes Colors - slightly darker/muted */
+    --shape-1-color: #2b6cb0;
+    --shape-2-color: #2c5282;
+    --shape-3-color: #97266d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Background Shapes for Glassmorphism Effect */
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: float 20s infinite alternate;
+}
+
+.shape-1 {
+    top: -10%;
+    right: -10%;
+    width: 400px;
+    /* Reduced from 600px */
+    height: 400px;
+    background: var(--shape-1-color);
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    bottom: -10%;
+    left: -10%;
+    width: 400px;
+    /* Reduced from 500px */
+    height: 400px;
+    background: var(--shape-2-color);
+    animation-delay: -5s;
+}
+
+.shape-3 {
+    top: 30%;
+    /* Shifted up slightly */
+    left: 30%;
+    width: 500px;
+    /* Increased from 300px to be dominant */
+    height: 500px;
+    background: var(--shape-3-color);
+    animation-delay: -10s;
+}
+
+/* Subtle Background Line */
+/* Subtle Background Lines (Curved) */
+/* Subtle Background Lines (Curved with Gradients & Irregularity) */
+.bg-line {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    background-size: 100% 100%;
+    /* Create a ring shape using a mask */
+    -webkit-mask: radial-gradient(transparent 69%, black 70%);
+    mask: radial-gradient(transparent 69%, black 70%);
+}
+
+.line-1 {
+    top: 5%;
+    left: 10%;
+    width: 600px;
+    height: 600px;
+    /* Light Blue gradient */
+    background: conic-gradient(from 200deg, transparent 0%, rgba(137, 247, 254, 0.4) 30%, rgba(102, 166, 255, 0.8) 60%, transparent 80%);
+    transform: rotate(-30deg);
+}
+
+.line-2 {
+    bottom: 10%;
+    left: 5%;
+    /* Moved to left for PC balance */
+    width: 750px;
+    height: 750px;
+    /* Pink gradient */
+    background: conic-gradient(from 10deg, transparent 0%, rgba(255, 154, 158, 0.5) 40%, rgba(254, 207, 239, 0.8) 70%, transparent 90%);
+    transform: rotate(145deg);
+}
+
+.line-3 {
+    top: 20%;
+    right: 15%;
+    /* Keep one on right but balanced */
+    width: 650px;
+    height: 650px;
+    /* Mix of Blue and Pink - Open at Top (U-shape) */
+    /* Starting from 180deg puts the color at the bottom if we don't rotate much */
+    background: conic-gradient(from 220deg, transparent 0%, rgba(161, 196, 253, 0.4) 20%, rgba(194, 233, 251, 0.7) 50%, transparent 70%);
+    /* Rotate so the arc is at the bottom (gap at top) */
+    transform: rotate(0deg);
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(30px, 30px) rotate(10deg);
+    }
+}
+
+/* Glass Card Container */
+.clock-container {
+    padding: 2rem;
+    z-index: 10;
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 24px;
+    padding: 4rem 6rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 90vw;
+}
+
+/* Time Display */
+.time-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.time-display {
+    font-size: 6rem;
+    font-weight: 700;
+    letter-spacing: -2px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--text-color) 0%, var(--accent-color) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-bottom: 10px;
+    /* Prevent clipping */
+}
+
+.ampm {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Date Display */
+.date-display {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--text-color);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+/* Controls & Theme Toggle */
+.controls {
+    margin-top: 1rem;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.theme-toggle:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Icon Switching logic */
+.icon-moon {
+    display: none;
+}
+
+.icon-sun {
+    display: block;
+}
+
+[data-theme="dark"] .icon-moon {
+    display: block;
+}
+
+[data-theme="dark"] .icon-sun {
+    display: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .glass-card {
+        padding: 3rem 2rem;
+    }
+
+    .time-display {
+        font-size: 3.5rem;
+    }
+
+    .date-display {
+        font-size: 1.2rem;
+    }
+
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+    }
+
+    .shape-2 {
+        width: 250px;
+        height: 250px;
+    }
+
+    /* Preserve Mobile Line Positions (User liked these) */
+    .line-1 {
+        top: 5%;
+        left: 15%;
+        width: 600px;
+        height: 600px;
+        transform: rotate(-30deg);
+    }
+
+    .line-2 {
+        bottom: 15%;
+        right: 5%;
+        width: 750px;
+        height: 750px;
+        transform: rotate(145deg);
+    }
+
+    .line-3 {
+        top: 45%;
+        right: -15%;
+        width: 550px;
+        height: 550px;
+        transform: rotate(60deg);
+    }
+}
+
+.sync-indicator {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.8rem;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
