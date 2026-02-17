@@ -43,6 +43,8 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     min-height: 100vh;
+    min-height: 100dvh;
+    /* Mobile viewport fix */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -218,11 +220,15 @@ body {
 }
 
 /* Controls & Theme Toggle */
+/* Controls & Buttons */
 .controls {
     margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    z-index: 20;
 }
 
-.theme-toggle {
+.icon-btn {
     background: transparent;
     border: 2px solid var(--text-color);
     color: var(--text-color);
@@ -237,15 +243,69 @@ body {
     opacity: 0.7;
 }
 
-.theme-toggle:hover {
+.icon-btn:hover {
     opacity: 1;
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.1);
 }
 
-.theme-toggle svg {
+.icon-btn svg {
     width: 24px;
     height: 24px;
+}
+
+/* Theme Toggle Specifics */
+.icon-moon {
+    display: none;
+}
+
+/* ... existing icon switch logic ... */
+
+/* Fullscreen Mode Styles */
+body.fullscreen-mode .glass-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    max-width: 100vw;
+}
+
+body.fullscreen-mode .time-display {
+    font-size: 20vw;
+    /* Fallback */
+    font-size: clamp(3rem, 25vw, 23rem);
+    /* Increased size significantly */
+    white-space: nowrap;
+    /* Force single line */
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.fullscreen-mode .date-display {
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+body.fullscreen-mode .controls {
+    opacity: 0;
+    /* Hide controls by default in fullscreen */
+    transition: opacity 0.3s;
+}
+
+body.fullscreen-mode:hover .controls {
+    opacity: 1;
+    /* Show on hover */
+}
+
+/* Adjust shapes in fullscreen for more impact */
+body.fullscreen-mode .shape {
+    opacity: 0.8;
+    filter: blur(60px);
+}
+
+body.fullscreen-mode .bg-line {
+    opacity: 0.8;
 }
 
 /* Icon Switching logic */

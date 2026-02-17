@@ -10,7 +10,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateEl = document.getElementById('date');
     const ampmEl = document.getElementById('ampm');
     const themeToggle = document.getElementById('theme-toggle');
+    const fullscreenToggle = document.getElementById('fullscreen-toggle');
     const html = document.documentElement;
+
+    // ... (theme logic) ...
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(e => {
+                console.log('Native fullscreen blocked or not supported');
+                // Fallback for when API fails or is not supported: toggle manually
+                document.body.classList.toggle('fullscreen-mode');
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+
+    function updateFullscreenClass() {
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+            document.body.classList.add('fullscreen-mode');
+        } else {
+            document.body.classList.remove('fullscreen-mode');
+        }
+    }
+
+    // Handle state changes purely via events for consistency
+    document.addEventListener('fullscreenchange', updateFullscreenClass);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenClass);
+
+    // Event Listeners
+    themeToggle.addEventListener('click', toggleTheme);
+    fullscreenToggle.addEventListener('click', toggleFullscreen);
 
     // Create sync indicator
     const syncIndicator = document.createElement('div');
@@ -77,13 +110,12 @@ document.addEventListener('DOMContentLoaded', () => {
         minutesEl.textContent = String(m).padStart(2, '0');
         secondsEl.textContent = String(s).padStart(2, '0');
 
-        // Date String
-        dateEl.textContent = `${year}年${month}月${day}日 (${dayName})`;
+        // Date String (running every frame is fine for simple string comparison or just setting it)
+        const dateString = `${year}年${month}月${day}日 (${dayName})`;
+        if (dateEl.textContent !== dateString) {
+            dateEl.textContent = dateString;
+        }
 
-        // Schedule next update for the start of the next second to be efficient?
-        // Actually, requestAnimationFrame is better for smooth verification, 
-        // but for a digital clock, we just need to ensure we catch the second change immediately.
-        // Running every frame ensures we change the number exactly when ms rolls over 0.
         requestAnimationFrame(updateClock);
     }
 
