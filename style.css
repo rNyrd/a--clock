@@ -268,47 +268,59 @@ body {
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .glass-card {
-        padding: 3rem 2rem;
+        padding: 2rem 1rem;
+        /* Reduce padding to give more space for text */
+        width: 90%;
     }
 
     .time-display {
-        font-size: 3.5rem;
+        font-size: 13vw;
+        /* Responsive font size */
+        white-space: nowrap;
+        /* Prevent wrapping */
     }
 
     .date-display {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .shape-1 {
         width: 300px;
         height: 300px;
+        top: -5%;
+        /* Move closer to edge */
     }
 
     .shape-2 {
         width: 250px;
         height: 250px;
+        bottom: -5%;
+        /* Move closer to edge */
     }
 
     /* Preserve Mobile Line Positions (User liked these) */
     .line-1 {
-        top: 5%;
-        left: 15%;
+        top: 0%;
+        /* Move further up */
+        left: 5%;
         width: 600px;
         height: 600px;
         transform: rotate(-30deg);
     }
 
     .line-2 {
-        bottom: 15%;
-        right: 5%;
+        bottom: 5%;
+        /* Move further down */
+        right: -10%;
         width: 750px;
         height: 750px;
         transform: rotate(145deg);
     }
 
     .line-3 {
-        top: 45%;
-        right: -15%;
+        top: 40%;
+        right: -30%;
+        /* Spread out */
         width: 550px;
         height: 550px;
         transform: rotate(60deg);
