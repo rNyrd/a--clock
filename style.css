@@ -161,13 +161,14 @@ body {
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
     border-radius: 24px;
-    padding: 4rem 6rem;
+    padding: clamp(2rem, 5vw, 4rem) clamp(2rem, 8vw, 6rem);
+    /* Responsive padding */
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    max-width: 90vw;
+    max-width: 95vw;
 }
 
 /* Time Display */
@@ -180,7 +181,10 @@ body {
 }
 
 .time-display {
-    font-size: 6rem;
+    font-size: 10vw;
+    /* Reduced fallback */
+    font-size: clamp(2rem, 10vw, 5.5rem);
+    /* Slightly smaller max to fit with padding */
     font-weight: 700;
     letter-spacing: -2px;
     font-variant-numeric: tabular-nums;
@@ -190,6 +194,8 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     padding-bottom: 10px;
+    white-space: nowrap;
+    /* Prevent wrapping globally */
     /* Prevent clipping */
 }
 
@@ -269,8 +275,8 @@ body.fullscreen-mode .glass-card {
 body.fullscreen-mode .time-display {
     font-size: 20vw;
     /* Fallback */
-    font-size: clamp(3rem, 25vw, 23rem);
-    /* Increased size significantly */
+    font-size: clamp(3rem, 20vw, 20rem);
+    /* Adjusted for safety */
     white-space: nowrap;
     /* Force single line */
     text-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
