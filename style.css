@@ -61,6 +61,8 @@ body {
     height: 100%;
     z-index: -1;
     overflow: hidden;
+    /* Ensure background covers everything */
+    pointer-events: none;
 }
 
 .shape {
@@ -75,7 +77,6 @@ body {
     top: -10%;
     right: -10%;
     width: 400px;
-    /* Reduced from 600px */
     height: 400px;
     background: var(--shape-1-color);
     animation-delay: 0s;
@@ -85,7 +86,6 @@ body {
     bottom: -10%;
     left: -10%;
     width: 400px;
-    /* Reduced from 500px */
     height: 400px;
     background: var(--shape-2-color);
     animation-delay: -5s;
@@ -93,17 +93,13 @@ body {
 
 .shape-3 {
     top: 30%;
-    /* Shifted up slightly */
     left: 30%;
     width: 500px;
-    /* Increased from 300px to be dominant */
     height: 500px;
     background: var(--shape-3-color);
     animation-delay: -10s;
 }
 
-/* Subtle Background Line */
-/* Subtle Background Lines (Curved) */
 /* Subtle Background Lines (Curved with Gradients & Irregularity) */
 .bg-line {
     position: absolute;
@@ -111,7 +107,6 @@ body {
     z-index: 0;
     pointer-events: none;
     background-size: 100% 100%;
-    /* Create a ring shape using a mask */
     -webkit-mask: radial-gradient(transparent 69%, black 70%);
     mask: radial-gradient(transparent 69%, black 70%);
 }
@@ -121,7 +116,6 @@ body {
     left: 10%;
     width: 600px;
     height: 600px;
-    /* Light Blue gradient */
     background: conic-gradient(from 200deg, transparent 0%, rgba(137, 247, 254, 0.4) 30%, rgba(102, 166, 255, 0.8) 60%, transparent 80%);
     transform: rotate(-30deg);
 }
@@ -129,10 +123,8 @@ body {
 .line-2 {
     bottom: 10%;
     left: 5%;
-    /* Moved to left for PC balance */
     width: 750px;
     height: 750px;
-    /* Pink gradient */
     background: conic-gradient(from 10deg, transparent 0%, rgba(255, 154, 158, 0.5) 40%, rgba(254, 207, 239, 0.8) 70%, transparent 90%);
     transform: rotate(145deg);
 }
@@ -140,13 +132,9 @@ body {
 .line-3 {
     top: 20%;
     right: 15%;
-    /* Keep one on right but balanced */
     width: 650px;
     height: 650px;
-    /* Mix of Blue and Pink - Open at Top (U-shape) */
-    /* Starting from 180deg puts the color at the bottom if we don't rotate much */
     background: conic-gradient(from 220deg, transparent 0%, rgba(161, 196, 253, 0.4) 20%, rgba(194, 233, 251, 0.7) 50%, transparent 70%);
-    /* Rotate so the arc is at the bottom (gap at top) */
     transform: rotate(0deg);
 }
 
@@ -186,6 +174,8 @@ body {
 .time-wrapper {
     display: flex;
     align-items: baseline;
+    justify-content: center;
+    /* Center horizontally */
     gap: 1rem;
 }
 
@@ -208,6 +198,10 @@ body {
     font-weight: 600;
     color: var(--text-color);
     opacity: 0.8;
+}
+
+.ampm:empty {
+    display: none;
 }
 
 /* Date Display */

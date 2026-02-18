@@ -16,15 +16,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // ... (theme logic) ...
 
     function toggleFullscreen() {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(e => {
-                console.log('Native fullscreen blocked or not supported');
-                // Fallback for when API fails or is not supported: toggle manually
+        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen().catch(e => {
+                    console.log('Native fullscreen blocked or not supported');
+                    document.body.classList.toggle('fullscreen-mode');
+                });
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else {
+                // Fallback for iOS Safari which doesn't support API on elements
                 document.body.classList.toggle('fullscreen-mode');
-            });
+            }
         } else {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else {
+                document.body.classList.remove('fullscreen-mode');
             }
         }
     }
