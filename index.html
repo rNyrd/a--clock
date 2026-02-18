@@ -32,6 +32,8 @@
                     <span id="minutes">00</span>
                     <span class="colon">:</span>
                     <span id="seconds">00</span>
+                    <span class="colon small">.</span>
+                    <span id="milliseconds">000</span>
                 </div>
                 <div class="ampm" id="ampm"></div>
             </div>
@@ -41,6 +43,13 @@
             </div>
 
             <div class="controls">
+                <button class="icon-btn" id="ms-toggle" aria-label="ミリ秒切り替え">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </button>
                 <button class="icon-btn" id="fullscreen-toggle" aria-label="全画面表示">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

@@ -7,13 +7,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
+    const millisecondsEl = document.getElementById('milliseconds');
     const dateEl = document.getElementById('date');
     const ampmEl = document.getElementById('ampm');
     const themeToggle = document.getElementById('theme-toggle');
     const fullscreenToggle = document.getElementById('fullscreen-toggle');
+    const msToggle = document.getElementById('ms-toggle');
     const html = document.documentElement;
 
     // ... (theme logic) ...
+
+    // Millisecond Toggle Logic
+    const savedMsState = localStorage.getItem('showMs');
+    // Default to true if not set, or parse 'true'/'false'
+    let showMs = savedMsState === null ? true : savedMsState === 'true';
+
+    function updateMsVisibility() {
+        if (showMs) {
+            document.body.classList.remove('hide-milliseconds');
+        } else {
+            document.body.classList.add('hide-milliseconds');
+        }
+    }
+
+    function toggleMs() {
+        showMs = !showMs;
+        localStorage.setItem('showMs', showMs);
+        updateMsVisibility();
+    }
+
+    // Initialize visibility
+    updateMsVisibility();
 
     function toggleFullscreen() {
         if (!document.fullscreenElement && !document.webkitFullscreenElement) {
@@ -54,6 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners
     themeToggle.addEventListener('click', toggleTheme);
     fullscreenToggle.addEventListener('click', toggleFullscreen);
+    msToggle.addEventListener('click', toggleMs);
 
     // Create sync indicator
     const syncIndicator = document.createElement('div');
@@ -119,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hoursEl.textContent = String(h).padStart(2, '0');
         minutesEl.textContent = String(m).padStart(2, '0');
         secondsEl.textContent = String(s).padStart(2, '0');
+        millisecondsEl.textContent = String(ms).padStart(3, '0');
 
         // Date String (running every frame is fine for simple string comparison or just setting it)
         const dateString = `${year}年${month}月${day}日 (${dayName})`;
